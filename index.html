@@ -20,6 +20,8 @@ function make_interval_func () {
 	elem.innerHTML = httpObj.responseText;
 	for (var e = elem.firstChild.firstChild; e != null; e = e.nextSibling) {
 	    e.className = "dictitem";
+	    e.onmouseover = (function (x) {return function () {x.style.backgroundColor = "#ffd"}})(e);
+	    e.onmouseout = (function (x) {return function () {x.style.backgroundColor = "white"}})(e);
 	    e.onclick = (function (x) {
 		return function () {
 // 		    alert ("clicked! " + x);
