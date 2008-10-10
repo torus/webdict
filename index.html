@@ -1,0 +1,71 @@
+<html>
+<head><title>English-Japanese</title>
+<script type="text/javascript"><!--
+function make_interval_func () {
+    var httpObj;
+    var prevtext = "";
+    var idlecount = 0;
+
+    // these elemets don't exist yet
+    var loading_elem;
+    var forward_elem;
+
+    var displayData = function () {
+	document.getElementById ("result").innerHTML = httpObj.responseText;
+	loading_elem.style.visibility = "hidden";
+    };
+
+    var changed = false;
+
+    return function () {
+	var text = document.getElementById ("word").value.toLowerCase();
+	
+	if (text.length > 0) {
+	    if (text != prevtext || changed) {
+		prevtext = text;
+
+		idlecount = 0;
+
+		loading_elem = document.getElementById ("loading");
+		forward_elem = document.getElementById ("forward");
+
+		forward_elem.onchange = function (){changed = true};
+		changed = false;
+
+		loading_elem.style.visibility = "visible";
+
+		httpObj = new XMLHttpRequest ();
+		httpObj.onload = displayData;
+		httpObj.open ("GET", (forward_elem.checked ? "/word/" : "/reverse/") + text, true);
+		httpObj.send (null);
+	    } else {
+		document.getElementById ("debug").innerHTML = idlecount;
+		if (idlecount ++ > 5) {
+		    document.getElementById ("word").value = "";
+// 		    document.getElementById ("wordform").reset ();
+		    idlecount = 0;
+		}
+	    }
+	}
+    };
+}
+
+setInterval (make_interval_func (), 1000);
+// --></script>
+</head>
+<body style="width: 40ex">
+<div style="font-size:large;">
+<form id="wordform">word: <input id="word" type="text" size="20" />
+    <input id="forward" type="checkbox" checked="checked" />単語
+    <span id="loading" style="visibility:hidden">*</span>
+    <span id="debug">*</span>
+    </form>
+</div>
+<div id="result"></div>
+<p>
+英単語または日本語を記入してください。
+日本語はローマ字でも OK です。
+「単語」のチェックを外すと、逆引きも出来ます。
+</p>
+</body>
+</html>
