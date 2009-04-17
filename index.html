@@ -1,9 +1,11 @@
 <html>
 <head><title>English-Japanese</title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=0;" />
 <style type="text/css">
     .dictitem {overflow: visible;
 	       white-space: nowrap;}
     .listitem {}
+    ul {margin-left: 0px; padding-left: 0px;}
 </style>
 <script type="text/javascript"><!--
 function make_interval_func () {
@@ -69,11 +71,11 @@ function make_interval_func () {
 setInterval (make_interval_func (), 1000);
 // --></script>
 </head>
-<body style="width: 40ex">
+<body>
 <h4>history</h4>
 <ul id="list"></ul>
-<div style="font-size:large;">
-<form id="wordform">word: <input id="word" type="text" size="20" />
+<div>
+<form id="wordform"><input id="word" type="text" size="20" />
     <input id="forward" type="checkbox" checked="checked" />単語
     <span id="loading" style="visibility:hidden">*</span>
     <span id="debug">*</span>
