@@ -36,6 +36,8 @@ function make_interval_func () {
     var changed = false;
 
     return function () {
+	document.getElementById ("word").focus ();
+
 	var text = document.getElementById ("word").value.toLowerCase();
 	
 	if (text.length > 0) {
@@ -58,11 +60,12 @@ function make_interval_func () {
 		httpObj.send (null);
 	    } else {
 		document.getElementById ("debug").innerHTML = idlecount;
-		if (idlecount ++ > 5) {
-		    document.getElementById ("word").value = "";
-// 		    document.getElementById ("wordform").reset ();
-		    idlecount = 0;
-		}
+		if (idlecount > 5) {
+		    var text = document.getElementById ("word");
+		    text.focus ();
+		    text.select ();
+		} else
+		    idlecount ++;
 	    }
 	}
     };
